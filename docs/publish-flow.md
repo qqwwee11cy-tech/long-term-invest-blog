@@ -4,7 +4,7 @@
 
 1. `docs/writing-guide.md` 전체와 해당 카테고리 절을 읽고, 해당 주제 목록에서 체크되지 않은 첫 주제를 고릅니다 (주간 시장 정리는 목록 없음).
 2. 웹 검색으로 사실을 확인하며 글과 SVG 그림을 만듭니다. 주제 목록에서 그 주제를 `[x]`로 바꿉니다.
-3. 점검: 글 속 숫자를 출처와 다시 대조, 그래프 숫자와 본문 일치, 매수/매도 권유·목표주가·전망 표현 없음, 문장 베끼기 없음, frontmatter 확인, `npm install && npm run build` 통과, 가능하면 Playwright(executablePath `/opt/pw-browsers/chromium`)로 390px 너비 스크린샷 확인.
+3. 점검: `docs/writing-guide.md` 맨 위 "블로그 주인의 글쓰기 규칙" 1~8번을 하나씩 확인하고 어긋난 곳을 고칩니다(규칙 9·10). 그다음 글 속 숫자를 출처와 다시 대조, 그래프 숫자와 본문 일치, 매수/매도 권유·목표주가·전망 표현 없음, 문장 베끼기 없음, frontmatter 확인, `npm install && npm run build` 통과, 가능하면 Playwright(executablePath `/opt/pw-browsers/chromium`)로 390px 너비 스크린샷 확인.
 4. 새 브랜치 `post/<파일명>`으로 커밋·푸시하고 main 대상 PR을 엽니다. `subscribe_pr_activity`로 PR을 지켜봅니다. 미리보기 주소: `https://long-term-invest-blog-git-post-<파일명>-qqwwee11cy-4937.vercel.app/posts/<파일명>/`
 5. 승인 요청
    - 이 스레드에 reply: 제목, 요약 2~3문장, 미리보기 링크, 그리고 "괜찮으면 여기에 '승인'이라고 보내주세요. 제가 바로 게시할게요. 고칠 점은 말로 적어주시면 반영할게요."
