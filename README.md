@@ -1,6 +1,6 @@
 # 천천히 부자되기
 
-장기 투자 기록과 정보를 나누는 블로그입니다. [Astro](https://astro.build)로 만든 정적 사이트입니다.
+장기 투자 정보와 기업·ETF 분석을 나누는 블로그입니다. [Astro](https://astro.build)로 만든 정적 사이트입니다.
 
 ## 글 쓰기
 
@@ -11,7 +11,7 @@
 title: '글 제목'
 description: '목록과 검색 결과에 보일 한 줄 요약'
 pubDate: 2026-10-20
-category: journal   # journal(내 투자 기록) 또는 guide(장기 투자 정보)
+category: guide     # guide(장기 투자 정보), analysis(기업·ETF 분석), news(주간 시장 정리)
 tags: ['ETF', '배당']
 draft: false        # true면 사이트에 보이지 않습니다
 ---
