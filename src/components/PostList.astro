@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { CATEGORIES } from '../consts';
+import { formatDate } from '../lib/posts';
+
+interface Props { posts: CollectionEntry<'posts'>[] }
+const { posts } = Astro.props;
+---
+{posts.length === 0 ? (
+  <p class="muted">아직 글이 없어요.</p>
+) : (
+  <ul>
+    {posts.map((post) => (
+      <li>
+        <a class="title" href={`/posts/${post.id}/`}>{post.data.title}</a>
+        <p class="desc">{post.data.description}</p>
+        <p class="meta muted">
+          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+          · <a href={`/category/${post.data.category}/`}>{CATEGORIES[post.data.category].name}</a>
+        </p>
+      </li>
+    ))}
+  </ul>
+)}
+<style>
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+  .title { font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; }
+  .title:hover { color: var(--accent); }
+  .desc { margin: .35rem 0; }
+  .meta { margin: 0; font-size: .85rem; }
+</style>

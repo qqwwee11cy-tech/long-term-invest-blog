@@ -1,0 +1,15 @@
+---
+import { SITE_TITLE } from '../consts';
+const year = new Date().getFullYear();
+---
+<footer>
+  <p class="disclaimer">
+    이 블로그의 글은 개인적인 기록과 일반적인 정보 공유를 위한 것이며, 특정 종목의 매수·매도 권유가 아닙니다.
+    투자 판단과 그 결과의 책임은 투자자 본인에게 있습니다.
+  </p>
+  <p>© {year} {SITE_TITLE} · <a href="/rss.xml">RSS</a></p>
+</footer>
+<style>
+  footer { max-width: var(--max); margin: 0 auto; padding: 2rem 1rem 3rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; }
+  .disclaimer { line-height: 1.6; }
+</style>
