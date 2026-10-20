@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="복리 계산기" description="원금, 연 수익률, 기간을 넣으면 복리로 불어난 금액을 계산합니다.">
+  <p class="muted"><a href="/tools/">투자 도구</a></p>
+  <h1>복리 계산기</h1>
+  <p class="muted">한 번 넣어둔 돈이 복리로 얼마나 불어나는지 계산합니다.</p>
+
+  <form class="tool-form" id="compound-form">
+    <label>원금 (만 원)<input name="principal" type="number" inputmode="decimal" min="0" value="1000" /></label>
+    <label>연 수익률 (%)<input name="rate" type="number" inputmode="decimal" step="0.1" value="7" /></label>
+    <label>기간 (년)<input name="years" type="number" inputmode="numeric" min="1" max="100" value="30" /></label>
+    <label>복리 주기
+      <select name="freq">
+        <option value="1">매년</option>
+        <option value="12">매월</option>
+      </select>
+    </label>
+  </form>
+
+  <div class="result-cards">
+    <div class="result-card highlight"><div class="label">최종 금액</div><div class="value" id="c-final">-</div></div>
+    <div class="result-card"><div class="label">늘어난 금액</div><div class="value" id="c-gain">-</div></div>
+    <div class="result-card"><div class="label">원금 대비</div><div class="value" id="c-multiple">-</div></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>기간</th><th class="num">복리</th><th class="num">단리였다면</th></tr></thead>
+      <tbody id="c-table"></tbody>
+    </table>
+  </div>
+  <p class="note">세금과 수수료는 빼고 계산했어요. 실제 수익률은 매년 달라지고 손실이 날 수도 있습니다.</p>
+</Base>
+
+<script>
+  import { won, num } from '../../scripts/format';
+
+  const form = document.getElementById('compound-form') as HTMLFormElement;
+  const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement;
+
+  function update() {
+    const principal = num(field('principal')) * 1e4;
+    const rate = num(field('rate')) / 100;
+    const years = Math.max(1, Math.min(100, Math.round(num(field('years'), 1))));
+    const freq = num(field('freq'), 1);
+    const valueAt = (y: number) => principal * Math.pow(1 + rate / freq, freq * y);
+
+    const final = valueAt(years);
+    document.getElementById('c-final')!.textContent = won(final);
+    document.getElementById('c-gain')!.textContent = won(final - principal);
+    document.getElementById('c-multiple')!.textContent = principal > 0 ? `${(final / principal).toFixed(2)}배` : '-';
+
+    const step = years <= 10 ? 1 : 5;
+    const rows: string[] = [];
+    for (let y = step; y <= years; y += step) rows.push(row(y));
+    if (years % step !== 0) rows.push(row(years));
+    document.getElementById('c-table')!.innerHTML = rows.join('');
+
+    function row(y: number) {
+      return `<tr><td>${y}년</td><td class="num">${won(valueAt(y))}</td><td class="num">${won(principal * (1 + rate * y))}</td></tr>`;
+    }
+  }
+
+  form.addEventListener('input', update);
+  update();
+</script>

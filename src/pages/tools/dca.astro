@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="적립식 투자 시뮬레이터" description="매달 일정 금액을 꾸준히 투자했을 때 연도별 예상 금액을 보여줍니다.">
+  <p class="muted"><a href="/tools/">투자 도구</a></p>
+  <h1>적립식 투자 시뮬레이터</h1>
+  <p class="muted">매달 꾸준히 넣으면 몇 년 뒤 얼마가 되는지 연도별로 보여줍니다.</p>
+
+  <form class="tool-form" id="dca-form">
+    <label>시작 금액 (만 원)<input name="initial" type="number" inputmode="decimal" min="0" value="0" /></label>
+    <label>매달 넣는 돈 (만 원)<input name="monthly" type="number" inputmode="decimal" min="0" value="50" /></label>
+    <label>연 수익률 (%)<input name="rate" type="number" inputmode="decimal" step="0.1" value="7" /></label>
+    <label>기간 (년)<input name="years" type="number" inputmode="numeric" min="1" max="60" value="20" /></label>
+    <label>매년 적립금 늘리기 (%)<input name="raise" type="number" inputmode="decimal" step="0.5" min="0" value="0" /></label>
+  </form>
+
+  <div class="result-cards">
+    <div class="result-card highlight"><div class="label">예상 평가금액</div><div class="value" id="d-final">-</div></div>
+    <div class="result-card"><div class="label">넣은 돈 합계</div><div class="value" id="d-paid">-</div></div>
+    <div class="result-card"><div class="label">투자 수익</div><div class="value" id="d-gain">-</div></div>
+  </div>
+
+  <div class="legend"><span class="l-principal">넣은 돈</span><span class="l-gain">투자 수익</span></div>
+  <div id="d-bars" aria-hidden="true"></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>연차</th><th class="num">월 적립금</th><th class="num">넣은 돈 합계</th><th class="num">평가금액</th></tr></thead>
+      <tbody id="d-table"></tbody>
+    </table>
+  </div>
+  <p class="note">매달 말에 넣고 월 복리로 계산했어요. 세금과 수수료는 뺐고, 실제 수익률은 매년 달라지며 손실이 날 수도 있습니다.</p>
+</Base>
+
+<script>
+  import { won, num } from '../../scripts/format';
+
+  const form = document.getElementById('dca-form') as HTMLFormElement;
+  const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement;
+
+  function update() {
+    const initial = num(field('initial')) * 1e4;
+    let monthly = num(field('monthly')) * 1e4;
+    const rate = num(field('rate')) / 100;
+    const years = Math.max(1, Math.min(60, Math.round(num(field('years'), 1))));
+    const raise = num(field('raise')) / 100;
+    const monthlyRate = Math.pow(1 + rate, 1 / 12) - 1;
+
+    let value = initial;
+    let paid = initial;
+    const yearly: { year: number; monthly: number; paid: number; value: number }[] = [];
+    for (let y = 1; y <= years; y++) {
+      if (y > 1) monthly *= 1 + raise;
+      for (let m = 0; m < 12; m++) {
+        value = value * (1 + monthlyRate) + monthly;
+        paid += monthly;
+      }
+      yearly.push({ year: y, monthly, paid, value });
+    }
+
+    document.getElementById('d-final')!.textContent = won(value);
+    document.getElementById('d-paid')!.textContent = won(paid);
+    document.getElementById('d-gain')!.textContent = won(value - paid);
+
+    document.getElementById('d-table')!.innerHTML = yearly
+      .map((r) => `<tr><td>${r.year}년</td><td class="num">${won(r.monthly)}</td><td class="num">${won(r.paid)}</td><td class="num">${won(r.value)}</td></tr>`)
+      .join('');
+
+    const max = Math.max(...yearly.map((r) => Math.max(r.value, r.paid)), 1);
+    const step = years <= 15 ? 1 : Math.ceil(years / 15);
+    document.getElementById('d-bars')!.innerHTML = yearly
+      .filter((r) => r.year % step === 0 || r.year === years)
+      .map((r) => {
+        const p = (Math.min(r.paid, r.value) / max) * 100;
+        const g = (Math.max(r.value - r.paid, 0) / max) * 100;
+        return `<div class="bar-row"><span>${r.year}년</span><div class="bar"><div class="principal" style="width:${p}%"></div><div class="gain" style="width:${g}%"></div></div></div>`;
+      })
+      .join('');
+  }
+
+  form.addEventListener('input', update);
+  update();
+</script>

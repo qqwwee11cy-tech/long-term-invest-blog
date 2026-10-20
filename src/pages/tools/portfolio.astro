@@ -1,0 +1,119 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="포트폴리오 비중 계산기" description="현재 보유 금액과 목표 비중을 넣으면 리밸런싱에 필요한 매수·매도 금액을 계산합니다.">
+  <p class="muted"><a href="/tools/">투자 도구</a></p>
+  <h1>포트폴리오 비중 계산기</h1>
+  <p class="muted">지금 가진 금액과 목표 비중을 넣으면, 목표에 맞추려면 무엇을 얼마나 사고팔아야 하는지 알려줍니다.</p>
+
+  <div class="table-wrap">
+    <table class="assets">
+      <thead><tr><th>자산</th><th>금액(만 원)</th><th>목표 %</th><th></th></tr></thead>
+      <tbody id="p-rows"></tbody>
+    </table>
+  </div>
+  <p><button type="button" id="p-add">+ 자산 추가</button></p>
+
+  <form class="tool-form" id="p-form">
+    <label>추가로 넣을 돈 (만 원)<input name="cash" type="number" inputmode="decimal" min="0" value="0" /></label>
+    <label>방식
+      <select name="mode">
+        <option value="rebalance">사고팔아서 맞추기</option>
+        <option value="buyonly">사기만 해서 최대한 맞추기</option>
+      </select>
+    </label>
+  </form>
+
+  <p id="p-warning" class="note"></p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>자산</th><th class="num">현재 비중</th><th class="num">목표 금액</th><th class="num">해야 할 일</th></tr></thead>
+      <tbody id="p-result"></tbody>
+    </table>
+  </div>
+  <p class="note">입력한 값은 이 기기 밖으로 보내지지 않아요. 매매 수수료와 세금은 계산에 넣지 않았습니다.</p>
+</Base>
+
+<style>
+  .assets { table-layout: fixed; }
+  .assets th, .assets td { padding: .3rem; font-size: .85rem; }
+  .assets th:nth-child(1) { width: 34%; }
+  .assets th:nth-child(2) { width: 30%; }
+  .assets th:nth-child(3) { width: 22%; }
+  .assets th:nth-child(4) { width: 14%; }
+  .assets input { padding: .45rem .4rem; min-width: 0; }
+  .assets td:last-child { text-align: center; }
+  .assets button { padding: .4rem .5rem; }
+</style>
+
+<script>
+  import { won, num } from '../../scripts/format';
+
+  const rowsEl = document.getElementById('p-rows')!;
+  const form = document.getElementById('p-form') as HTMLFormElement;
+  const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement;
+
+  const defaults = [
+    { name: '국내 주식', amount: 300, target: 30 },
+    { name: '해외 주식', amount: 500, target: 40 },
+    { name: '채권', amount: 200, target: 30 },
+  ];
+
+  function addRow(name = '', amount = 0, target = 0) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input data-k="name" type="text" /></td>
+      <td><input data-k="amount" type="number" inputmode="decimal" min="0" /></td>
+      <td><input data-k="target" type="number" inputmode="decimal" min="0" max="100" /></td>
+      <td><button type="button" aria-label="삭제">✕</button></td>`;
+    (tr.querySelector('[data-k=name]') as HTMLInputElement).value = name;
+    (tr.querySelector('[data-k=amount]') as HTMLInputElement).value = String(amount);
+    (tr.querySelector('[data-k=target]') as HTMLInputElement).value = String(target);
+    tr.querySelector('button')!.addEventListener('click', () => { tr.remove(); update(); });
+    rowsEl.appendChild(tr);
+  }
+
+  function escapeHtml(s: string) {
+    return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+  }
+
+  function update() {
+    const assets = [...rowsEl.querySelectorAll('tr')].map((tr, i) => ({
+      name: (tr.querySelector('[data-k=name]') as HTMLInputElement).value.trim() || `자산 ${i + 1}`,
+      amount: num(tr.querySelector('[data-k=amount]')) * 1e4,
+      target: num(tr.querySelector('[data-k=target]')) / 100,
+    }));
+    const cash = num(field('cash')) * 1e4;
+    const buyOnly = field('mode').value === 'buyonly';
+    const current = assets.reduce((s, a) => s + a.amount, 0);
+    const total = current + cash;
+    const targetSum = assets.reduce((s, a) => s + a.target, 0);
+
+    const warning = document.getElementById('p-warning')!;
+    warning.textContent = Math.abs(targetSum - 1) > 0.0001
+      ? `목표 비중 합계가 ${(targetSum * 100).toFixed(1)}%예요. 100%가 되도록 맞춰주세요.`
+      : '';
+
+    let trades = assets.map((a) => total * a.target - a.amount);
+    if (buyOnly) {
+      // 부족한 자산에만 추가 자금을 부족한 만큼 비례해서 나눕니다.
+      const shortfall = trades.reduce((s, t) => s + Math.max(t, 0), 0);
+      trades = trades.map((t) => (t > 0 && shortfall > 0 ? (t / shortfall) * Math.min(cash, shortfall) : 0));
+    }
+
+    document.getElementById('p-result')!.innerHTML = assets
+      .map((a, i) => {
+        const t = trades[i];
+        const action = Math.abs(t) < 1 ? '그대로' : t > 0 ? `${won(t)} 매수` : `${won(-t)} 매도`;
+        const pct = current > 0 ? ((a.amount / current) * 100).toFixed(1) : '0.0';
+        return `<tr><td>${escapeHtml(a.name)}</td><td class="num">${pct}%</td><td class="num">${won(total * a.target)}</td><td class="num">${action}</td></tr>`;
+      })
+      .join('');
+  }
+
+  defaults.forEach((d) => addRow(d.name, d.amount, d.target));
+  document.getElementById('p-add')!.addEventListener('click', () => { addRow(); update(); });
+  rowsEl.addEventListener('input', update);
+  form.addEventListener('input', update);
+  update();
+</script>

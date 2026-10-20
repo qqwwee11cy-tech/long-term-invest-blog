@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const tools = [
+  { href: '/tools/compound/', name: '복리 계산기', desc: '한 번 넣어둔 돈이 시간이 지나면 얼마가 되는지 계산합니다.' },
+  { href: '/tools/dca/', name: '적립식 투자 시뮬레이터', desc: '매달 꾸준히 넣으면 몇 년 뒤 얼마가 되는지 연도별로 보여줍니다.' },
+  { href: '/tools/portfolio/', name: '포트폴리오 비중 계산기', desc: '목표 비중에 맞추려면 무엇을 얼마나 사고팔아야 하는지 알려줍니다.' },
+];
+---
+<Base title="투자 도구" description="복리 계산기, 적립식 투자 시뮬레이터, 포트폴리오 비중 계산기">
+  <h1>투자 도구</h1>
+  <p class="muted">장기 투자 계획을 세울 때 쓰는 간단한 계산기들입니다. 입력한 값은 이 기기 밖으로 보내지지 않아요.</p>
+  <ul class="tools">
+    {tools.map((t) => (
+      <li>
+        <a href={t.href}>{t.name}</a>
+        <p>{t.desc}</p>
+      </li>
+    ))}
+  </ul>
+</Base>
+<style>
+  .tools { list-style: none; padding: 0; display: grid; gap: .75rem; }
+  .tools li { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
+  .tools a { font-weight: 700; font-size: 1.1rem; text-decoration: none; }
+  .tools p { margin: .25rem 0 0; color: var(--muted); }
+</style>
