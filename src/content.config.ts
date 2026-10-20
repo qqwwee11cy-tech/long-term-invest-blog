@@ -9,7 +9,7 @@ const posts = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    category: z.enum(['journal', 'guide']),
+    category: z.enum(['journal', 'guide', 'news']),
     tags: z.array(z.string()).default([]),
     // true면 사이트에 나오지 않습니다 (자동 작성 초안 검토용)
     draft: z.boolean().default(false),
