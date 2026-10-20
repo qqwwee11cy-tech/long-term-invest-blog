@@ -7,8 +7,9 @@ import { SITE_TITLE, SITE_DESCRIPTION, SITE_VERIFICATION } from '../consts';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
-const { title, description = SITE_DESCRIPTION } = Astro.props;
+const { title, description = SITE_DESCRIPTION, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -23,6 +24,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
