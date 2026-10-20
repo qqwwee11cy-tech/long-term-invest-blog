@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 410" font-family="'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif">
+<rect width="480" height="410" rx="16" fill="#fbfaf7"/>
+<text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#1f2328">1,000만 원을 30년 두면</text>
+<text x="240" y="74" text-anchor="middle" font-size="17" fill="#5b6370">연 7% 가정, 매년 빠지는 비용만 다를 때</text>
+<text x="36" y="120" font-size="19" fill="#1f2328">총보수 0.1%</text><text x="444" y="120" text-anchor="end" font-size="19" font-weight="700" fill="#1f2328">7,402만 원</text><rect x="36" y="130" width="408" height="34" rx="6" fill="#1f7a4d"/><text x="36" y="204" font-size="19" fill="#1f2328">총보수 0.5%</text><text x="444" y="204" text-anchor="end" font-size="19" font-weight="700" fill="#1f2328">6,614만 원</text><rect x="36" y="214" width="365" height="34" rx="6" fill="#5e9e7e"/><text x="36" y="288" font-size="19" fill="#1f2328">총보수 1.0%</text><text x="444" y="288" text-anchor="end" font-size="19" font-weight="700" fill="#1f2328">5,743만 원</text><rect x="36" y="298" width="317" height="34" rx="6" fill="#a3c4b2"/>
+<text x="240" y="370" text-anchor="middle" font-size="18" font-weight="700" fill="#1f7a4d">0.1%와 1.0%의 차이: 약 1,659만 원</text>
+<text x="240" y="394" text-anchor="middle" font-size="15" fill="#5b6370">세금 제외, 계산을 위한 가정</text>
+</svg>
