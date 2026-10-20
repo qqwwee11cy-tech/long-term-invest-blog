@@ -10,6 +10,6 @@ export type CategoryKey = keyof typeof CATEGORIES;
 
 // 검색엔진 소유 확인 코드 (구글 서치 콘솔, 네이버 서치어드바이저에서 받은 content 값)
 export const SITE_VERIFICATION = {
-  google: '',
+  google: 'bckSpdEYuAZxaprblwAoISO6uDcHufSNm7dZ9t60mL8',
   naver: '',
 };
