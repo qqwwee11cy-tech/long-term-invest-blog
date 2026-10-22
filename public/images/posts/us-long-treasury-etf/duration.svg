@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 440" font-family="'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif">
+<rect width="480" height="440" rx="16" fill="#fbfaf7"/>
+<text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#1f2328">금리가 1%p 오르면</text>
+<text x="240" y="74" text-anchor="middle" font-size="17" fill="#5b6370">가격은 대략 이만큼 내려가요 (듀레이션 어림)</text>
+<text x="36" y="120" font-size="17" fill="#1f2328">KODEX(H) · 듀레이션 13.4년</text><text x="444" y="146" text-anchor="end" font-size="18" font-weight="700" fill="#1f2328">약 -13.4%</text><rect x="36" y="130" width="139" height="26" rx="6" fill="#a3c4b2"/>
+<text x="36" y="194" font-size="17" fill="#1f2328">TLT · 듀레이션 14.9년</text><text x="444" y="220" text-anchor="end" font-size="18" font-weight="700" fill="#1f2328">약 -14.9%</text><rect x="36" y="204" width="154" height="26" rx="6" fill="#5e9e7e"/>
+<text x="36" y="268" font-size="17" fill="#1f2328">스트립 30년물 · 듀레이션 약 29년</text><rect x="36" y="278" width="300" height="26" rx="6" fill="#1f7a4d"/><text x="444" y="298" text-anchor="end" font-size="18" font-weight="700" fill="#1f2328">약 -29%</text>
+<text x="240" y="352" text-anchor="middle" font-size="18" font-weight="700" fill="#1f7a4d">1,000만원이면 약 134만 · 149만 · 290만원 감소</text>
+<text x="240" y="384" text-anchor="middle" font-size="15" fill="#5b6370">가격 변화 ≈ -(듀레이션 × 금리 변화), 큰 변화일수록 오차</text>
+<text x="240" y="410" text-anchor="middle" font-size="15" fill="#5b6370">듀레이션: KODEX·TLT 2026.10, 스트립 2023.5 자료</text>
+</svg>
