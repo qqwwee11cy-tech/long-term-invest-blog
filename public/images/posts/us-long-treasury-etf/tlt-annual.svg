@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 470" font-family="'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif">
+<rect width="480" height="470" rx="16" fill="#fbfaf7"/>
+<text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#1f2328">TLT 연간 총수익률</text>
+<text x="240" y="74" text-anchor="middle" font-size="17" fill="#5b6370">미국 20년+ 국채 ETF, 기준가(NAV)·달러 기준</text>
+<line x1="230" y1="96" x2="230" y2="420" stroke="#5b6370" stroke-width="1.5"/>
+<text x="36" y="132" font-size="18" fill="#1f2328">2021년</text><rect x="210" y="112" width="20" height="30" rx="4" fill="#c0392b"/><text x="240" y="133" font-size="18" font-weight="700" fill="#c0392b">-4.76%</text>
+<text x="36" y="192" font-size="18" fill="#1f2328">2022년</text><rect x="100" y="172" width="130" height="30" rx="4" fill="#c0392b"/><text x="240" y="193" font-size="18" font-weight="700" fill="#c0392b">-31.41%</text>
+<text x="36" y="252" font-size="18" fill="#1f2328">2023년</text><rect x="230" y="232" width="12" height="30" rx="4" fill="#1f7a4d"/><text x="252" y="253" font-size="18" font-weight="700" fill="#1f7a4d">+2.96%</text>
+<text x="36" y="312" font-size="18" fill="#1f2328">2024년</text><rect x="198" y="292" width="32" height="30" rx="4" fill="#c0392b"/><text x="240" y="313" font-size="18" font-weight="700" fill="#c0392b">-7.84%</text>
+<text x="36" y="372" font-size="18" fill="#1f2328">2025년</text><rect x="230" y="352" width="17" height="30" rx="4" fill="#1f7a4d"/><text x="257" y="373" font-size="18" font-weight="700" fill="#1f7a4d">+4.17%</text>
+<text x="240" y="444" text-anchor="middle" font-size="15" fill="#5b6370">자료: 블랙록 iShares 공식 페이지 (2026.10 확인)</text>
+</svg>
