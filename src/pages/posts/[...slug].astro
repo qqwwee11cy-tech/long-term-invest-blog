@@ -1,4 +1,5 @@
 ---
+import { existsSync } from 'node:fs';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getPublishedPosts, formatDate } from '../../lib/posts';
@@ -6,14 +7,23 @@ import { CATEGORIES } from '../../consts';
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  return posts.map((post) => {
+    // 같은 카테고리 글을 먼저, 모자라면 다른 최신 글로 3개를 채웁니다.
+    const others = posts.filter((p) => p.id !== post.id);
+    const related = [
+      ...others.filter((p) => p.data.category === post.data.category),
+      ...others.filter((p) => p.data.category !== post.data.category),
+    ].slice(0, 3);
+    return { params: { slug: post.id }, props: { post, related } };
+  });
 }
 
-const { post } = Astro.props;
+const { post, related } = Astro.props;
+const ogImage = existsSync(`public/og/${post.id}.png`) ? `/og/${post.id}.png` : undefined;
 const { Content } = await render(post);
 const { title, description, pubDate, updatedDate, category, tags } = post.data;
 ---
-<Base title={title} description={description}>
+<Base title={title} description={description} image={ogImage} type="article">
   <article>
     <p class="muted cat"><a href={`/category/${category}/`}>{CATEGORIES[category].name}</a></p>
     <h1>{title}</h1>
@@ -26,11 +36,33 @@ const { title, description, pubDate, updatedDate, category, tags } = post.data;
       <p class="tags">{tags.map((t) => <span class="tag">#{t}</span>)}</p>
     )}
   </article>
+  {related.length > 0 && (
+    <aside class="related">
+      <h2>이어서 읽어 볼 글</h2>
+      <ul>
+        {related.map((p) => (
+          <li>
+            <a href={`/posts/${p.id}/`}>{p.data.title}</a>
+            <p class="muted">{p.data.description}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="tools"><a href="/tools/">투자 계산기로 내 숫자 넣어 보기 →</a></p>
+    </aside>
+  )}
 </Base>
 <style>
   .cat { margin: 0; font-size: .9rem; }
   .cat a { text-decoration: none; }
   h1 { margin: .25rem 0; font-size: 1.9rem; }
   .meta { margin: 0 0 2rem; font-size: .9rem; }
+  .related { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid var(--border); }
+  .related h2 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  .related ul { list-style: none; padding: 0; margin: 0; }
+  .related li { padding: .85rem 0; border-bottom: 1px solid var(--border); }
+  .related li a { font-weight: 700; color: var(--text); text-decoration: none; }
+  .related li a:hover { color: var(--accent); }
+  .related li p { margin: .25rem 0 0; font-size: .9rem; }
+  .tools { margin-top: 1rem; }
   .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 2.5rem; }
 </style>
