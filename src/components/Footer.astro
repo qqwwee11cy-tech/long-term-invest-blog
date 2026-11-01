@@ -7,9 +7,33 @@ const year = new Date().getFullYear();
     이 블로그의 글은 개인적인 기록과 일반적인 정보 공유를 위한 것이며, 특정 종목의 매수·매도 권유가 아닙니다.
     투자 판단과 그 결과의 책임은 투자자 본인에게 있습니다.
   </p>
+  <p class="visits" id="visits" hidden>오늘 <b id="visits-today">-</b>명 · 전체 <b id="visits-total">-</b>명 방문</p>
   <p>© {year} {SITE_TITLE} · <a href="/rss.xml">RSS</a></p>
 </footer>
+<script is:inline>
+  // 무료 카운터(counterapi.dev). 같은 브라우저 창에서는 한 번만 세고, 실패하면 숨긴 채로 둡니다.
+  (function () {
+    var NS = 'long-term-invest-blog';
+    var day = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10).replace(/-/g, '');
+    var seen = false;
+    try { seen = sessionStorage.getItem('visited') === '1'; sessionStorage.setItem('visited', '1'); } catch (e) {}
+    var act = seen ? '' : '/up';
+    function get(key) {
+      return fetch('https://api.counterapi.dev/v1/' + NS + '/' + key + act)
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (j) { return j.count || 0; })
+        .catch(function () { return seen ? 0 : null; });
+    }
+    Promise.all([get('total'), get('day-' + day)]).then(function (v) {
+      if (v[0] == null) return;
+      document.getElementById('visits-total').textContent = v[0].toLocaleString('ko-KR');
+      document.getElementById('visits-today').textContent = (v[1] || 0).toLocaleString('ko-KR');
+      document.getElementById('visits').hidden = false;
+    });
+  })();
+</script>
 <style>
   footer { max-width: var(--max); margin: 0 auto; padding: 2rem 1rem 3rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; }
   .disclaimer { line-height: 1.6; }
+  .visits b { color: var(--text); font-weight: 700; }
 </style>
