@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 560" font-family="'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif"><rect width="480" height="560" rx="16" fill="#fbfaf7"/><text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#1f2328">DB형과 DC형, 한눈에 비교</text>
+<rect x="28" y="70" width="424" height="210" rx="12" fill="#ffffff" stroke="#5b6370" stroke-width="1.5"/><text x="48" y="104" font-size="20" font-weight="700" fill="#1f2328">DB형 (확정급여형)</text><text x="48" y="134" font-size="16" fill="#5b6370">받을 돈이 미리 정해져 있어요</text>
+<text x="48" y="172" font-size="16" fill="#1f2328">굴리는 사람</text><text x="432" y="172" text-anchor="end" font-size="16" font-weight="700" fill="#1f2328">회사</text>
+<text x="48" y="204" font-size="16" fill="#1f2328">손해·이익</text><text x="432" y="204" text-anchor="end" font-size="16" font-weight="700" fill="#1f2328">회사가 져요</text>
+<text x="48" y="236" font-size="16" fill="#1f2328">퇴직할 때 받는 돈</text><text x="432" y="236" text-anchor="end" font-size="16" font-weight="700" fill="#1f2328">마지막 월급 × 근속연수</text>
+<text x="48" y="266" font-size="15" fill="#5b6370">월급이 꾸준히 오를수록 든든해요</text>
+<rect x="28" y="300" width="424" height="210" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="2"/><text x="48" y="334" font-size="20" font-weight="700" fill="#1f7a4d">DC형 (확정기여형)</text><text x="48" y="364" font-size="16" fill="#5b6370">회사가 넣어 줄 돈이 정해져 있어요</text>
+<text x="48" y="402" font-size="16" fill="#1f2328">회사가 넣는 돈</text><text x="432" y="402" text-anchor="end" font-size="16" font-weight="700" fill="#1f2328">매년 연봉의 1/12 이상</text>
+<text x="48" y="434" font-size="16" fill="#1f2328">굴리는 사람</text><text x="432" y="434" text-anchor="end" font-size="16" font-weight="700" fill="#1f2328">나</text>
+<text x="48" y="466" font-size="16" fill="#1f2328">퇴직할 때 받는 돈</text><text x="432" y="466" text-anchor="end" font-size="16" font-weight="700" fill="#1f2328">쌓인 돈 + 굴린 결과</text>
+<text x="48" y="496" font-size="15" fill="#5b6370">잘 굴리면 더, 못 굴리면 덜 받아요</text>
+<text x="240" y="542" text-anchor="middle" font-size="16" font-weight="700" fill="#1f7a4d">DB → DC 전환은 가능, 반대는 안 돼요</text></svg>
