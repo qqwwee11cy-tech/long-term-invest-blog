@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" font-family="'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif"><rect width="480" height="600" rx="16" fill="#fbfaf7"/>
+<text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#1f2328">1년 매매차익별 세금 비교</text>
+<text x="240" y="72" text-anchor="middle" font-size="16" fill="#5b6370">일반 계좌, 단순 계산</text>
+<rect x="36" y="92" width="16" height="16" rx="3" fill="#1f7a4d"/><text x="58" y="106" font-size="15" fill="#1f2328">국내 상장 ETF (15.4%)</text>
+<rect x="250" y="92" width="16" height="16" rx="3" fill="#5b6370"/><text x="272" y="106" font-size="15" fill="#1f2328">미국 상장 직접 (22%)</text>
+<text x="36" y="150" font-size="18" font-weight="700" fill="#1f2328">차익 500만원</text>
+<rect x="36" y="164" width="60" height="28" rx="6" fill="#1f7a4d"/>
+<text x="104" y="184" font-size="17" font-weight="700" fill="#1f2328">77만원</text>
+<rect x="36" y="204" width="43" height="28" rx="6" fill="#5b6370"/>
+<text x="87" y="224" font-size="17" font-weight="700" fill="#1f2328">55만원</text>
+<text x="36" y="280" font-size="18" font-weight="700" fill="#1f2328">차익 1,000만원</text>
+<rect x="36" y="294" width="120" height="28" rx="6" fill="#1f7a4d"/>
+<text x="164" y="314" font-size="17" font-weight="700" fill="#1f2328">154만원</text>
+<rect x="36" y="334" width="129" height="28" rx="6" fill="#5b6370"/>
+<text x="173" y="354" font-size="17" font-weight="700" fill="#1f2328">165만원</text>
+<text x="36" y="410" font-size="18" font-weight="700" fill="#1f2328">차익 2,000만원</text>
+<rect x="36" y="424" width="240" height="28" rx="6" fill="#1f7a4d"/>
+<text x="284" y="444" font-size="17" font-weight="700" fill="#1f2328">308만원</text>
+<rect x="36" y="464" width="300" height="28" rx="6" fill="#5b6370"/>
+<text x="344" y="484" font-size="17" font-weight="700" fill="#1f2328">385만원</text>
+<text x="240" y="548" text-anchor="middle" font-size="17" font-weight="700" fill="#1f7a4d">갈림길은 차익 약 833만원</text>
+<text x="240" y="576" text-anchor="middle" font-size="15" fill="#5b6370">직접 투자는 250만원 공제 후 22%로 계산했어요</text>
+</svg>
